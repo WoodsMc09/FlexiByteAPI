@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FlexiByteAPI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FlexiByteAPI_jar</output-path>
+    <root id="archive" name="FlexiByteAPI.jar">
+      <element id="module-output" name="FlexiByteAPI" />
+    </root>
+  </artifact>
+</component>
