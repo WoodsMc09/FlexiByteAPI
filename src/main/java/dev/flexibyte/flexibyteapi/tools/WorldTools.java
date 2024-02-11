@@ -253,7 +253,7 @@ public class WorldTools {
 
     public Location getRandomLocation(World world, int maxDistance, int minDistance, boolean liquids){
         //create empty location
-        final Location[] loc = {null};
+        final Location[] loc = new Location[1];
 
         //create new runnable
         new BukkitRunnable(){
@@ -288,7 +288,7 @@ public class WorldTools {
 
     public Location getRandomLocation(World world, int maxDistance, boolean liquids){
         //create empty location
-        final Location[] loc = {null};
+        final Location[] loc = new Location[1];
 
         //create new runnable
         new BukkitRunnable(){
@@ -323,7 +323,7 @@ public class WorldTools {
 
     public Location getRandomLocation(World world, int maxDistance, int minDistance, List<Material> restricted){
         //create empty location
-        final Location[] loc = {null};
+        final Location[] loc = new Location[1];
 
         //create new runnable
         new BukkitRunnable(){
