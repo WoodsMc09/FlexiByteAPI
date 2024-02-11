@@ -284,7 +284,7 @@ public class WorldTools {
         return loc[0];
     }
 
-    public Location getRandomLocation(World world, int maxDistance, boolean liquids){
+    public Location getRandomLocation(World world, int maxDistance, boolean liquidRestrict){
         //create empty location
         final List<Location> loc = new ArrayList<>();
 
@@ -300,10 +300,10 @@ public class WorldTools {
                 int z = r.nextInt(maxDistance);
 
                 //get location
-                loc.add(world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0));
+                loc.set(0, world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0));
 
                 //check if liquids are restricted
-                if(!liquids){
+                if(!liquidRestrict){
                     cancel();
                     return;
                 }
