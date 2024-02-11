@@ -18,16 +18,16 @@ public class WorldTools {
         Chunk chunk = loc.getChunk();
 
         //get min and max coordinates
-        final int minX = chunk.getX() << 4;
-        final int minZ = chunk.getZ() << 4;
-        final int maxX = minX | 15;
+        final int minX = 0;
+        final int minZ = 0;
+        final int maxX = 15;
         final int maxY = chunk.getWorld().getMaxHeight();
-        final int maxZ = minZ | 15;
+        final int maxZ = 15;
 
         //loop through all coordinates in chunk
-        for (int x = minX; x <= maxX; ++x) {
-            for (int y = 0; y <= maxY; ++y) {
-                for (int z = minZ; z <= maxZ; ++z) {
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = 0; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
                     //return block == block
                     return chunk.getBlock(x, y, z) == block;
                 }
@@ -43,16 +43,16 @@ public class WorldTools {
         Chunk chunk = loc.getChunk();
 
         //get min and max coordinates
-        final int minX = chunk.getX() << 4;
-        final int minZ = chunk.getZ() << 4;
-        final int maxX = minX | 15;
+        final int minX = 0;
+        final int minZ = 0;
+        final int maxX = 15;
         final int maxY = chunk.getWorld().getMaxHeight();
-        final int maxZ = minZ | 15;
+        final int maxZ = 15;
 
         //loop through all coordinates in chunk
-        for (int x = minX; x <= maxX; ++x) {
-            for (int y = 0; y <= maxY; ++y) {
-                for (int z = minZ; z <= maxZ; ++z) {
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = 0; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
                     //return blockType == material
                     return chunk.getBlock(x, y, z).getType() == mat;
                 }
@@ -93,16 +93,16 @@ public class WorldTools {
         List<Block> blocks = new ArrayList<>();
 
         //get min and max coordinates
-        final int minX = chunk.getX() << 4;
-        final int minZ = chunk.getZ() << 4;
-        final int maxX = minX | 15;
+        final int minX = 0;
+        final int minZ = 0;
+        final int maxX = 15;
         final int maxY = chunk.getWorld().getMaxHeight();
-        final int maxZ = minZ | 15;
+        final int maxZ = 15;
 
         //loop through all coordinates in chunk
-        for (int x = minX; x <= maxX; ++x) {
-            for (int y = 0; y <= maxY; ++y) {
-                for (int z = minZ; z <= maxZ; ++z) {
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = 0; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
                     //add block into list
                     blocks.add(chunk.getBlock(x, y, z));
                 }
@@ -117,16 +117,16 @@ public class WorldTools {
         Chunk chunk = loc.getChunk();
 
         //get min and max coordinates
-        final int minX = chunk.getX() << 4;
-        final int minZ = chunk.getZ() << 4;
-        final int maxX = minX | 15;
+        final int minX = 0;
+        final int minZ = 0;
+        final int maxX = 15;
         final int maxY = chunk.getWorld().getMaxHeight();
-        final int maxZ = minZ | 15;
+        final int maxZ = 15;
 
         //loop through all coordinates in chunk
-        for (int x = minX; x <= maxX; ++x) {
-            for (int y = 0; y <= maxY; ++y) {
-                for (int z = minZ; z <= maxZ; ++z) {
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = 0; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
                     //remove block
                     if(naturally)
                         chunk.getBlock(x, y, z).breakNaturally();
