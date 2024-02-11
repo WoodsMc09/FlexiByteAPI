@@ -5,12 +5,21 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class WorldTools {
+
+    private Plugin plugin = null;
+
+    public WorldTools(Plugin plugin){
+        this.plugin = plugin;
+    }
 
 
     public boolean checkChunk(Location loc, Block block) {
@@ -202,7 +211,7 @@ public class WorldTools {
     }
 
 
-
+    /*
     public void createRealisticExplosion(Location loc, int power){
         //create fake explosion
         loc.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, loc, 1);
@@ -236,7 +245,152 @@ public class WorldTools {
         }
 
 
+
+
     }
 
+     */
+
+    public Location getRandomLocation(World world, int maxDistance, int minDistance, boolean liquids){
+        //create empty location
+        final Location[] loc = {null};
+
+        //create new runnable
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                //create random
+                Random r = new Random();
+
+                //get random x and z within max and min distance
+                int x = r.nextInt(maxDistance) + minDistance;
+                int z = r.nextInt(maxDistance) + minDistance;
+
+                //get location
+                loc[0] = world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0);
+
+                //check if liquids are restricted
+                if(!liquids){
+                    cancel();
+                    return;
+                }
+
+                //check if there are liquids
+                if(loc[0].subtract(0, 1, 0).getBlock().getType() != Material.WATER && loc[0].subtract(0, 1, 0).getBlock().getType() != Material.LAVA)
+                    cancel();
+
+
+            }
+        }.runTaskTimer(plugin, 0, 0);
+
+        return loc[0];
+    }
+
+    public Location getRandomLocation(World world, int maxDistance, boolean liquids){
+        //create empty location
+        final Location[] loc = {null};
+
+        //create new runnable
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                //create random
+                Random r = new Random();
+
+                //get random x and z within max distance
+                int x = r.nextInt(maxDistance);
+                int z = r.nextInt(maxDistance);
+
+                //get location
+                loc[0] = world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0);
+
+                //check if liquids are restricted
+                if(!liquids){
+                    cancel();
+                    return;
+                }
+
+                //check if there are liquids
+                if(loc[0].subtract(0, 1, 0).getBlock().getType() != Material.WATER && loc[0].subtract(0, 1, 0).getBlock().getType() != Material.LAVA)
+                    cancel();
+
+
+            }
+        }.runTaskTimer(plugin, 0, 0);
+
+        return loc[0];
+    }
+
+    public Location getRandomLocation(World world, int maxDistance, int minDistance, List<Material> restricted){
+        //create empty location
+        final Location[] loc = {null};
+
+        //create new runnable
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                //create random
+                Random r = new Random();
+
+                //get random x and z within max and min distance
+                int x = r.nextInt(maxDistance) + minDistance;
+                int z = r.nextInt(maxDistance) + minDistance;
+
+                //get location
+                loc[0] = world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0);
+
+                //check if block is restricted
+                boolean isRestricted = false;
+                for(Material m : restricted ){
+                    if(loc[0].subtract(0, 1, 0).getBlock().getType() == m)
+                        isRestricted = true;
+
+                }
+
+                if(!isRestricted)
+                    cancel();
+
+
+            }
+        }.runTaskTimer(plugin, 0, 0);
+
+        return loc[0];
+    }
+
+    public Location getRandomLocation(World world, int maxDistance, List<Material> restricted){
+        //create empty location
+        final Location[] loc = {null};
+
+        //create new runnable
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                //create random
+                Random r = new Random();
+
+                //get random x and z within max and min distance
+                int x = r.nextInt(maxDistance);
+                int z = r.nextInt(maxDistance);
+
+                //get location
+                loc[0] = world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0);
+
+                //check if block is restricted
+                boolean isRestricted = false;
+                for(Material m : restricted ){
+                    if(loc[0].subtract(0, 1, 0).getBlock().getType() == m)
+                        isRestricted = true;
+
+                }
+
+                if(!isRestricted)
+                    cancel();
+
+
+            }
+        }.runTaskTimer(plugin, 0, 0);
+
+        return loc[0];
+    }
 
 }

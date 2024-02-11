@@ -41,7 +41,7 @@ public final class FlexiByteAPI {
         logger.log(Level.INFO, "Loaded player tools");
         stringTools = new StringTools();
         logger.log(Level.INFO, "Loaded string tools");
-        worldTools = new WorldTools();
+        worldTools = new WorldTools(plug);
         logger.log(Level.INFO, "Loaded world tools");
 
 
