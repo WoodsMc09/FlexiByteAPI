@@ -9,9 +9,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class WorldTools {
 
@@ -288,7 +286,7 @@ public class WorldTools {
 
     public Location getRandomLocation(World world, int maxDistance, boolean liquids){
         //create empty location
-        final Location[] loc = new Location[1];
+        final List<Location> loc = new ArrayList<>();
 
         //create new runnable
         new BukkitRunnable(){
@@ -302,7 +300,7 @@ public class WorldTools {
                 int z = r.nextInt(maxDistance);
 
                 //get location
-                loc[0] = world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0);
+                loc.add(world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0));
 
                 //check if liquids are restricted
                 if(!liquids){
@@ -311,14 +309,14 @@ public class WorldTools {
                 }
 
                 //check if there are liquids
-                if(loc[0].subtract(0, 1, 0).getBlock().getType() != Material.WATER && loc[0].subtract(0, 1, 0).getBlock().getType() != Material.LAVA)
+                if(loc.get(0).subtract(0, 1, 0).getBlock().getType() != Material.WATER && loc.get(0).subtract(0, 1, 0).getBlock().getType() != Material.LAVA)
                     cancel();
 
 
             }
         }.runTaskTimer(plugin, 0, 0);
 
-        return loc[0];
+        return loc.get(0);
     }
 
     public Location getRandomLocation(World world, int maxDistance, int minDistance, List<Material> restricted){
