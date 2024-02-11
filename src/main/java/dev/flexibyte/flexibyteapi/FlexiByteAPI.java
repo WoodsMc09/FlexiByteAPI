@@ -11,9 +11,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class FlexiByteAPI extends JavaPlugin {
+public final class FlexiByteAPI {
 
-    //private Plugin plug = null;
+    private Plugin plug = null;
     private Logger logger = null;
 
     private ParticleLibrary particleLib = null;
@@ -22,21 +22,17 @@ public final class FlexiByteAPI extends JavaPlugin {
     private StringTools stringTools = null;
     private WorldTools worldTools = null;
 
-   /* public FlexiByteAPI(Plugin plug){
-        //get plugin instance
+
+
+    public void initialize(Plugin plug) {
         this.plug = plug;
-    }
 
-    */
-
-    @Override
-    public void onEnable() {
         //get logger
-        this.logger = this.getLogger();
+        this.logger = plug.getLogger();
 
         logger.log(Level.INFO, "Successfully connected");
 
-        particleLib = new ParticleLibrary(this);
+        particleLib = new ParticleLibrary(plug);
         logger.log(Level.INFO, "Loaded particle library");
 
         itemTools = new ItemTools();
@@ -49,11 +45,6 @@ public final class FlexiByteAPI extends JavaPlugin {
         logger.log(Level.INFO, "Loaded world tools");
 
 
-    }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
     }
 
     public ParticleLibrary getParticleLib() {
