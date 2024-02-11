@@ -147,15 +147,15 @@ public class WorldTools {
         List<Block> blocks = new ArrayList<>();
 
         //get min and max coordinates
-        final int minX = chunk.getX() << 4;
-        final int minZ = chunk.getZ() << 4;
-        final int maxX = minX | 15;
+        final int minX = chunk.getX();
+        final int minZ = chunk.getZ();
+        final int maxX = minX + 15;
         final int maxY = chunk.getWorld().getMaxHeight();
-        final int maxZ = minZ | 15;
+        final int maxZ = minZ + 15;
 
         //loop through all coordinates in chunk
         for (int x = minX; x <= maxX; ++x) {
-            for (int y = 0; y <= maxY; ++y) {
+            for (int y = -64; y <= maxY; ++y) {
                 for (int z = minZ; z <= maxZ; ++z) {
                     //check block and add to list
                     if(chunk.getBlock(x, y, z).getType() == mat)
