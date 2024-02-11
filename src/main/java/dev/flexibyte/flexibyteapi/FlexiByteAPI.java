@@ -1,109 +1,78 @@
 package dev.flexibyte.flexibyteapi;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import dev.flexibyte.flexibyteapi.libraries.ParticleLibrary;
+import dev.flexibyte.flexibyteapi.tools.ItemTools;
+import dev.flexibyte.flexibyteapi.tools.PlayerTools;
+import dev.flexibyte.flexibyteapi.tools.StringTools;
+import dev.flexibyte.flexibyteapi.tools.WorldTools;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.io.File;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class FlexiByteAPI extends JavaPlugin {
 
-    //THIS CODE IS INTENTIONALLY MESSY
+    private Plugin plug;
+    private Logger logger;
 
+    private ParticleLibrary particleLib;
+    private ItemTools itemTools;
+    private PlayerTools playerTools;
+    private StringTools stringTools;
+    private WorldTools worldTools;
 
-    public static Plugin plugin;
-
-    private static FlexiByteAPIManager api;
+    public FlexiByteAPI(Plugin plug){
+        //get plugin instance
+        this.plug = plug;
+    }
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        //get logger
+        this.logger = plug.getLogger();
+
+        logger.log(Level.INFO, "Successfully connected");
+
+        particleLib = new ParticleLibrary(plug);
+        logger.log(Level.INFO, "Loaded particle library");
+
+        itemTools = new ItemTools();
+        logger.log(Level.INFO, "Loaded item tools");
+        playerTools = new PlayerTools();
+        logger.log(Level.INFO, "Loaded player tools");
+        stringTools = new StringTools();
+        logger.log(Level.INFO, "Loaded string tools");
+        worldTools = new WorldTools();
+        logger.log(Level.INFO, "Loaded world tools");
+
 
     }
 
     @Override
     public void onDisable() {
-        api.closeConnection();
+        // Plugin shutdown logic
+    }
 
+    public ParticleLibrary getParticleLib() {
+        return particleLib;
+    }
 
+    public ItemTools getItemTools() {
+        return itemTools;
+    }
+
+    public PlayerTools getPlayerTools() {
+        return playerTools;
+    }
+
+    public StringTools getStringTools() {
+        return stringTools;
+    }
+
+    public WorldTools getWorldTools() {
+        return worldTools;
     }
 
 
-    private static File file;
-    private static YamlConfiguration info;
-
-    public static YamlConfiguration getInfo() {
-        return info;
-    }
-
-    private static FlexiByteAPIManager getAPI(Plugin p){
-        plugin = p;
-        file = new File(p.getDataFolder(), "data/info.yml");
-
-        if(!file.exists()){
-            file.getParentFile().mkdirs();
-            try {
-                file.createNewFile();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        info = YamlConfiguration.loadConfiguration(file);
-
-        String information = "PLUGIN INFORMATION> >This Plugin was created by FlexiByte Services.>The name of this plugin is " + p.getName() + ">" + p.getDescription() + "> >Thank you for using FlexiByte Services!> >serviceID: 12 7* 93 A* 01 D* 12* K1 9* 23";
-        String[] strings = information.split(">");
-        List<String> list = new ArrayList<>();
-        for(String s : strings){
-            list.add(s);
-        }
-        info.set("plugin-info", list);
-        save();
-
-        try {
-            api = new FlexiByteAPIManager(p);
-            api.initializeDatabase();
-
-
-            PluginProfile profile = new PluginProfile(p.getName(), p.getDescription().getDescription(), true);
-            if(api.findPluginProfileByName(profile.getName()) == null)
-                api.createPluginProfile(profile);
-            else
-                api.updatePluginProfile(api.getPluginProfileFromDatabase(profile.getName()));
-
-            new BukkitRunnable(){
-
-                @Override
-                public void run() {
-                    try {
-                        api.checkPluginProfile(profile);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }.runTaskTimer(plugin, 0, 600);
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        return new FlexiByteAPIManager(p);
-    }
-
-    private static void save() {
-        try {
-            info.save(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void setAPI(Plugin p){
-        getAPI(p);
-    }
 }
