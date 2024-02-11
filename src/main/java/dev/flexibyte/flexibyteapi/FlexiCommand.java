@@ -10,19 +10,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
-public class FlexiCommand extends BukkitCommand {
+public class FlexiCommand implements CommandExecutor {
 
     private String dev = "";
     private String client = "";
     private Plugin plugin = null;
     private StringTools stringTools = null;
 
-    protected FlexiCommand(String name, String description, String usageMessage, List<String> aliases) {
-        super(name, description, usageMessage, aliases);
-    }
-
-
-    public void register(Plugin plugin, String dev, String client, StringTools stringTools){
+    public FlexiCommand(Plugin plugin, String dev, String client, StringTools stringTools){
         this.plugin = plugin;
         this.dev = dev;
         this.client = client;
@@ -30,7 +25,7 @@ public class FlexiCommand extends BukkitCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //get message
         String message = "&3&lFlexiByte Services;&3Plugin: &b" + plugin.getName() + ";&3Version:" + plugin.getServer().getVersion() +";&3Developer: &b" + dev + ";&3Client &b" + client+ ";&e&oGet your plugin today! https://flexibyte.dev";
         String[] send = message.split(";");

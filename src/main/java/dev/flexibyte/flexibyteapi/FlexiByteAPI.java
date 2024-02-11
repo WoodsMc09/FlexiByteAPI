@@ -48,10 +48,15 @@ public final class FlexiByteAPI {
         logger.log(Level.INFO, "Loaded world tools");
 
         //log commands
-        FlexiCommand command = new FlexiCommand("flexi" + plug.getName(), "Get FlexiByte info about " + plug.getName(), "USAGE: /flexi" + plug.getName(), null);
-        command.register(plug, dev, client, stringTools);
-        ((CraftServer) plug.getServer()).getCommandMap().register("flexi" + plug.getName(), command);
-        logger.log(Level.INFO, "Registered /flexi" + plug.getName());
+
+        if(plug.getServer().getPluginCommand("flexibyte") == null){
+            logger.log(Level.SEVERE, "Could not register command '/flexibyte'! Make sure command is registered in plugin.yml!");
+            logger.log(Level.SEVERE, "IF IT IS REGISTERED PLEASE CONTACT A DEVELOPER AT FlexiByte Services!");
+        }
+        else {
+            plug.getServer().getPluginCommand("flexibyte").setExecutor(new FlexiCommand(plug, dev, client, stringTools));
+            logger.log(Level.INFO, "Successfully registered /flexibyte");
+        }
 
     }
 
