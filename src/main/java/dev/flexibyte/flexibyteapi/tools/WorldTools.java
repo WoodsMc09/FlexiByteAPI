@@ -300,7 +300,7 @@ public class WorldTools {
                 int z = r.nextInt(maxDistance);
 
                 //get location
-                loc.set(0, world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0));
+                loc.set(1, world.getHighestBlockAt(x, z).getLocation().add(0, 1, 0));
 
                 //check if liquids are restricted
                 if(!liquidRestrict){
@@ -309,14 +309,14 @@ public class WorldTools {
                 }
 
                 //check if there are liquids
-                if(loc.get(0).subtract(0, 1, 0).getBlock().getType() != Material.WATER && loc.get(0).subtract(0, 1, 0).getBlock().getType() != Material.LAVA)
+                if(loc.get(1).subtract(0, 1, 0).getBlock().getType() != Material.WATER && loc.get(1).subtract(0, 1, 0).getBlock().getType() != Material.LAVA)
                     cancel();
 
 
             }
         }.runTaskTimer(plugin, 0, 0);
 
-        return loc.get(0);
+        return loc.get(1);
     }
 
     public Location getRandomLocation(World world, int maxDistance, int minDistance, List<Material> restricted){
