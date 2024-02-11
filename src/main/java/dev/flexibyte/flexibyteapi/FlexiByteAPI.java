@@ -5,7 +5,6 @@ import dev.flexibyte.flexibyteapi.tools.ItemTools;
 import dev.flexibyte.flexibyteapi.tools.PlayerTools;
 import dev.flexibyte.flexibyteapi.tools.StringTools;
 import dev.flexibyte.flexibyteapi.tools.WorldTools;
-import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
 import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Level;
