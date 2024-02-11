@@ -49,7 +49,7 @@ public final class FlexiByteAPI {
 
         //log commands
         FlexiCommand command = new FlexiCommand("flexi" + plug.getName(), "Get FlexiByte info about " + plug.getName(), "USAGE: /flexi" + plug.getName(), null);
-        command.register(plug, "Woods", "none", stringTools);
+        command.register(plug, dev, client, stringTools);
         ((CraftServer) plug.getServer()).getCommandMap().register("flexi" + plug.getName(), command);
         logger.log(Level.INFO, "Registered /flexi" + plug.getName());
 
