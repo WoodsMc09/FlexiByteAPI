@@ -27,7 +27,7 @@ public class FlexiCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //get message
-        String message = "&3&lFlexiByte Services;&3Plugin: &b" + plugin.getName() + ";&3Version:" + plugin.getServer().getVersion() +";&3Developer: &b" + dev + ";&3Client &b" + client+ ";&e&oGet your plugin today! https://flexibyte.dev";
+        String message = "&3&lFlexiByte Services;&3Plugin: &b" + plugin.getName() + ";&3Version: &b" + plugin.getServer().getVersion() +";&3Developer: &b" + dev + ";&3Client &b" + client+ ";&e&oGet your plugin today! https://flexibyte.dev";
         String[] send = message.split(";");
 
         //send message
